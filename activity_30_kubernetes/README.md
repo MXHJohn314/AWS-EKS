@@ -1,6 +1,11 @@
-### In this activity, we set up all the tools for working with Kubernetes locally.
+### In this activity, we set up all the tools for working with Kubernetes (also referred to as K8s) locally.
 
-#### NOTE!</br>make sure you have a hypervisor (such as [hyperkit](https://github.com/moby/hyperkit) for Linux and MacOS, and [Windows Subsystem for Linux [WSL]](https://docs.microsoft.com/en-us/windows/wsl/install-win10)) or virtual machine platform (such as [VirtualBox](https://www.virtualbox.org/)) installed on your computer before continuing with this tutorial. You must have a virtual machine or hypervisor to continue!
+#### NOTE!</br>make sure you have DOcker installed, along with one of the following set of reqirements:
+ - for Linux and MacOS:
+   - a hypervisor (like [hyperkit](https://github.com/moby/hyperkit))
+ - Winows:
+   - [Windows Subsystem for Linux [WSL]](https://docs.microsoft.com/en-us/windows/wsl/install-win10) 
+   - Docker with "Install required Windows Components for WSL 2" checked upon installation
 
 `kubectl`, the cli tool, is also the name of the bash Terminal command that we use to manage our cluster from our virtual testbed, `minkube`. Following are a few commands to get `kubectl` set up.
 
@@ -67,83 +72,23 @@ Note: The following script has commands for the Linux distro Ubuntu on an AMD 64
     
 - **Reload your terminal at this point.**
 
-### Step 2 - Start a minikube cluster
-- For WSL:</br>
+### Step 2 - Start some clusters
+- For WSL 2 with Docker's compatibility layer installed:</br>
   - ```
     minikube start
     ```
-- For MacOS or Linux:</br> 
+- For hypervisor use:</br> 
   ```--hypervisor=<your_hypervisor>```. For example, if you installed `hyperkit`:
   - ```
     minikube start --hypervisor=hyperkit
     ```
 
-- Create an OIDC (OpenID Connect) provider for your cluster
-  - aws eks describe-cluster --name activity30 --query "cluster.identity.oidc.issuer" --output text
-    - https://oidc.eks.us-west-1.amazonaws.com/id/291A5E8FBD7F1B56614ABE6FDA67BD73
-  - eksctl utils associate-iam-oidc-provider --cluster activity30 --approve
-  - aws iam list-open-id-connect-providers | grep 291A5E8FBD7F1B56614ABE6FDA67BD73
-    - "Arn": "arn:aws:iam::971507148491:oidc-provider/oidc.eks.us-west-1.amazonaws.com/id/291A5E8FBD7F1B56614ABE6FDA67BD73"
-
-- Deploy the AWS Load Balancer Controller to the Amazon EKS cluster
-  - curl -o iam_policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.2.0/docs/install/iam_policy.json
-  - > ```
-    > aws iam create-policy \
-    > --policy-name AWSLoadBalancerControllerIAMPolicy \
-    > --policy-document file://iam_policy.json
-    > ```
-    - Response should look like this: 
-      ```
-      {
-          "Policy": {
-              "PolicyName": "AWSLoadBalancerControllerIAMPolicy",
-              "PolicyId": "ANPA6EMSWU3FQXU54ZP2H",
-              "Arn": "arn:aws:iam::971507148491:policy/AWSLoadBalancerControllerIAMPolicy",
-              "Path": "/",
-              "DefaultVersionId": "v1",
-              "AttachmentCount": 0,
-              "PermissionsBoundaryUsageCount": 0,
-              "IsAttachable": true,
-              "CreateDate": "2021-08-05T13:35:20Z",
-              "UpdateDate": "2021-08-05T13:35:20Z"
-          }
-      }
-      ```
-  - Create the IAM Service Account for this cluster with your AWS ID number
-    ``` 
-      eksctl create iamserviceaccount \
-      --cluster=activity30 \
-      --namespace=kube-system \
-      --name=aws-load-balancer-controller \
-      --attach-policy-arn=arn:aws:iam::<your_aws_id>:policy/AWSLoadBalancerControllerIAMPolicy \
-      --override-existing-serviceaccounts \
-      --approve          
-      ```
-  - We need to install helmV3 (the package manager for Kubernetes). Follow the instructions [here](https://helm.sh/docs/intro/install/).
-  
-    - ```
-      helm repo add eks https://aws.github.io/eks-charts
-      ```
-    - ```
-      helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
-        --set clusterName=activity30 \
-        --set serviceAccount.create=false \
-        --set serviceAccount.name=aws-load-balancer-controller \
-        -n kube-system
-      ```
-
-
-
-
-
-ignore these
-- docker pull  galacticwafer/fahrenheit2celsius
-- docker container run -d -it --name activityKLB galacticwafer/fahrenheit2celsius
-  - c3ed5b182810d721c4edcef7fcc56c88f4ffd39ee8504273c68a6cf0874c2a96
-  
-
-```
-echo '{"apiVersion": "v1","kind": "Namespace","metadata": {"name": "activity30","labels": {"name": "activity30"}}}' | jq . >> activity30_namespace.json
-kubectl create -f activity30_namespace.json
-rm activity30_namespace.json
-``` 
+- Make an EKS cluster in the cloud
+  - ```
+    eksctl create cluster \
+    --name activity30v2 \ 
+    --region us-west-1 \ 
+    --nodegroup-name linux-nodes \ 
+    --node-type t2.micro \
+    --nodes 2
+    ```
