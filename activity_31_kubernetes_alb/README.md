@@ -1,4 +1,6 @@
-# AWS EKS - Decentralized load-balancing with Kubernetes
+## Activity 31
+
+## AWS EKS - Decentralized load-balancing with Kubernetes
 
 ### In this activity, we will use Amazon's Elastic Kubernetes Service to load-balance an application with on-premise nodes (on your computer) and AWS nodes. 
 
