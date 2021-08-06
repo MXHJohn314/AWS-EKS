@@ -1,10 +1,10 @@
 ## Activity 31
 
-## AWS EKS - Decentralized load-balancing with Kubernetes
+### AWS EKS - Decentralized load-balancing with Kubernetes
 
-### In this activity, we will use Amazon's Elastic Kubernetes Service to load-balance an application with on-premise nodes (on your computer) and AWS nodes. 
+#### In this activity, we will use Amazon's Elastic Kubernetes Service to load-balance an application with on-premise nodes (on your computer) and AWS nodes. 
 
-## Steps
+### Steps
 
 
 - Create an OIDC (OpenID Connect) provider for your cluster
