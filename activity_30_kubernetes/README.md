@@ -1,4 +1,8 @@
-### In this activity, we set up all the tools for working with Kubernetes (also referred to as K8s) locally.
+## Activity 30
+
+### AWS EKS - Decentralized load-balancing with Kubernetes
+
+#### In this activity, we set up all the tools for working with Kubernetes (also referred to as K8s) locally.
 
 #### NOTE!</br>make sure you have DOcker installed, along with one of the following set of reqirements:
  - for Linux and MacOS:
@@ -9,7 +13,7 @@
 
 `kubectl`, the cli tool, is also the name of the bash Terminal command that we use to manage our cluster from our virtual testbed, `minkube`. Following are a few commands to get `kubectl` set up.
 
-## Steps
+### Steps
 
 ### Step 1 - Download and install `kubectl`, `minkube`, and `eksctl`
 Note: The following script has commands for the Linux distro Ubuntu on an AMD 64-bit machine. If you have a different computer architecture, consult the installation steps [here](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) for your architecture.
