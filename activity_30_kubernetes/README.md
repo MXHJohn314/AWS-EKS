@@ -1,6 +1,6 @@
 ## Activity 30
 
-### AWS EKS - Decentralized load-balancing with Kubernetes
+### Kubernetes and EKS Setup
 
 #### In this activity, we set up all the tools for working with Kubernetes (also referred to as K8s) locally.
 
