@@ -9,6 +9,12 @@
 ### Step 1 - Download and install `kubectl`, `minkube`, and `eksctl`
 Note: The following script has commands for the Linux distro Ubuntu on an AMD 64-bit machine. If you have a different computer architecture, consult the installation steps [here](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) for your architecture.
 
+- Make sure you are updated and upgraded
+
+  - ```
+    sudo apt update -y && sudo apt upgrade -y
+    ```
+    
 - Download `kubectl` and the checksum to make sure the download checks out. Then install it (you may need sudo and either `apt` or `yum`). Also note that your commands will differ slightly for different computer achitecture. Check [here]() to make sure.
 
   - ```
@@ -29,7 +35,7 @@ Note: The following script has commands for the Linux distro Ubuntu on an AMD 64
 
   -  Optional - The following command installs auto completion for ease of use. You can skip adding auto completion if you want.
      - ```
-       apt install bash-completion
+       sudo apt install bash-completion
        ```
      
      - ```
@@ -40,13 +46,26 @@ Note: The following script has commands for the Linux distro Ubuntu on an AMD 64
        kubectl completion bash >/etc/bash_completion.d/kubectl
        ```
 
-- Install `minikube` (check for the command for your architecture).
+- Install `minikube` (check for the commands [here](https://minikube.sigs.k8s.io/docs/start/) for your OS).
   - ```
-    sudo apt install minikube-linux-amd64 /usr/local/bin/minikube
+    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    sudo install minikube-linux-amd64 /usr/local/bin/minikube
     ```
     
-- Install `eksctl` following the instructions [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
-- **Don't forget to reload your terminal at this point!**
+- Install `eksctl` following the instructions seen [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html) for your OS
+  - ```
+    curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+    ```
+    
+  - ```
+    sudo mv /tmp/eksctl /usr/local/bin
+    ```
+  
+  - ```
+    eksctl version
+    ```
+    
+- **Reload your terminal at this point.**
 
 ### Step 2 - Start a minikube cluster
 - For WSL:</br>
