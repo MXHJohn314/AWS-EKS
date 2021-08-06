@@ -24,7 +24,7 @@ Note: The following script has commands for the Linux distro Ubuntu on an AMD 64
      ```
 
   -  ```
-     install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
      ```
 
   -  Optional - The following command installs auto completion for ease of use. You can skip adding auto completion if you want.
