@@ -86,19 +86,3 @@ Note: The following script has commands for the Linux distro Ubuntu on an AMD 64
         --set serviceAccount.name=aws-load-balancer-controller \
         -n kube-system
       ```
-
-
-
-
-
-ignore these
-- docker pull  galacticwafer/fahrenheit2celsius
-- docker container run -d -it --name activityKLB galacticwafer/fahrenheit2celsius
-  - c3ed5b182810d721c4edcef7fcc56c88f4ffd39ee8504273c68a6cf0874c2a96
-  
-
-```
-echo '{"apiVersion": "v1","kind": "Namespace","metadata": {"name": "activity30","labels": {"name": "activity30"}}}' | jq . >> activity30_namespace.json
-kubectl create -f activity30_namespace.json
-rm activity30_namespace.json
-``` 
