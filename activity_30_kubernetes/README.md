@@ -11,9 +11,9 @@ Note: The following script has commands for the Linux distro Ubuntu on an AMD 64
 
 - Download kubectl and the checksum to make sure the download checks out. Then install it (you may need sudo and either `apt` or `yum`). Also note that your commands will differ slightly for different computer achitecture. Check [here]() to make sure.
 
-  >```
-  >curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-  >```
+  ```
+  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+  ```
 
   ```curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"```
 
